@@ -2,16 +2,27 @@
 
 ## Импортированные скиллы
 
-`skills/` содержит материалы из репозитория **[anthropics/skills](https://github.com/anthropics/skills)**,
-коммит `2c5958ecac7cee2b583967a2c4981d0f4a75c579`.
+`skills/` содержит материалы из двух публичных репозиториев; пины — `upstreams.tsv`,
+перечни и лицензионный разбор — `UPSTREAM.md`.
 
-**Copyright 2026 Anthropic, PBC.** Лицензия — Apache License, Version 2.0
-(<https://www.apache.org/licenses/LICENSE-2.0>). Текст лицензии — в `LICENSE` этого репозитория
-и дословно в каждом каталоге скилла (`skills/<имя>/LICENSE.txt`).
+### anthropics/skills
 
-Импортировано 18 скиллов; перечень, пин и исключения — `UPSTREAM.md`. Скилл
-`doc-coauthoring` **не импортирован**: в апстриме у него нет файла лицензии, права на
-перераспространение не заявлены.
+- Коммит: `2c5958ecac7cee2b583967a2c4981d0f4a75c579`
+- Импортировано: 18 скиллов
+- **Copyright 2026 Anthropic, PBC.** Лицензия — Apache License, Version 2.0
+  (<https://www.apache.org/licenses/LICENSE-2.0>), текст — в `LICENSE` этого репозитория и
+  дословно в каждом каталоге скилла (`skills/<имя>/LICENSE.txt`).
+- `doc-coauthoring` **не импортирован**: у него в апстриме нет файла лицензии, права на
+  перераспространение не заявлены.
+
+### ClickHouse/agent-skills
+
+- Коммит: `d3b2b5ba43a8b80c2d08858b68d53edc701b5ace`
+- Импортировано: 11 скиллов
+- **Copyright ClickHouse, Inc.** Лицензия — Apache License, Version 2.0; в апстриме одна на
+  репозиторий, в каталоги скиллов скопирована дословно (`skills/<имя>/LICENSE.txt`).
+- Каталоги `packages/`, `.github/`, `.claude-plugin/` не импортированы (сборочные скрипты и
+  манифесты, а не скиллы).
 
 Файлы импортированных скиллов не редактировались; правки этого репозитория касаются только
 обвязки (README, `scripts/`, каталог) — она под Apache-2.0 (см. `LICENSE`).
@@ -23,5 +34,9 @@
 
 ## Сторонние компоненты
 
-`THIRD_PARTY_NOTICES.md` — дословная копия из апстрима: атрибуция сторонних компонентов,
-которые скиллы используют во время работы (imageio, imageio-ffmpeg, FFmpeg).
+Дословные notices апстримов лежат в `notices/` и перезаписываются при переимпорте:
+
+- `notices/anthropics-skills.md` — imageio, imageio-ffmpeg, FFmpeg и др. (компоненты, которые
+  тянут скиллы во время работы);
+- `notices/clickhouse-agent-skills.md` — атрибуция Vercel, Inc. (MIT) для сборочных скриптов
+  best-practices (в каталог не импортированы, но атрибуция сохранена дословно).

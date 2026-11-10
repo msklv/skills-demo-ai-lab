@@ -7,7 +7,8 @@
   3. у каждого скилла есть `LICENSE.txt` — без заявленной лицензии публиковать нельзя;
   4. таблица «Каталог» в README перечисляет ровно те скиллы, что лежат в `skills/`
      (нет ни пропущенных, ни фантомных строк);
-  5. в каталогах скиллов нет приватных артефактов (`*.local.md`, `.env*`).
+  5. в каталогах скиллов нет приватных артефактов (`*.local.md`, `.env*`);
+  6. `upstreams.tsv` — пины по коммиту (40 hex), notices апстрима скопирован в `notices/`.
 
 Коды выхода: 0 — каталог цел, 1 — есть расхождения.
 """
@@ -20,6 +21,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SKILLS = ROOT / "skills"
 README = ROOT / "README.md"
+UPSTREAMS = ROOT / "upstreams.tsv"
+NOTICES = ROOT / "notices"
+PIN = re.compile(r"^[0-9a-f]{40}$")
 
 FORBIDDEN = re.compile(r"(^|/)\.env(\..*)?$|\.local\.md$")
 
@@ -69,6 +73,27 @@ def main() -> int:
             if f.is_file() and FORBIDDEN.search(str(f.relative_to(skill))):
                 problems.append(f"{skill.name}: приватный файл в каталоге — {f.relative_to(skill)}")
 
+    # апстримы: пин коммитом, notices на месте
+    if not UPSTREAMS.is_file():
+        problems.append("нет upstreams.tsv")
+    else:
+        for line in UPSTREAMS.read_text(encoding="utf-8").splitlines():
+            if not line.strip() or line.lstrip().startswith("#"):
+                continue
+            field = line.split("\t")
+            if len(field) < 4:
+                problems.append(f"upstreams.tsv: строка без 4 колонок — {line[:60]}")
+                continue
+            repo, pin, _skills_dir, notices = field[0], field[1], field[2], field[3]
+            if "/" not in repo:
+                problems.append(f"upstreams.tsv: repo без owner/name — {repo}")
+            if not PIN.match(pin):
+                problems.append(f"upstreams.tsv: пин не коммит 40 hex — {repo}: {pin[:20]}")
+            slug = repo.replace("/", "-").lower()
+            target = NOTICES / f"{slug}.md"
+            if notices and not target.is_file():
+                problems.append(f"upstreams.tsv: нет notices/{slug}.md (заявлен {notices})")
+
     names = {p.name for p in dirs}
     if not README.is_file():
         problems.append("нет README.md")
@@ -88,7 +113,7 @@ def main() -> int:
             print(f"  - {p}")
         return 1
 
-    print(f"OK: {len(dirs)} скиллов, все с SKILL.md + LICENSE.txt и строкой в README")
+    print(f"OK: {len(dirs)} скиллов; SKILL.md + LICENSE.txt + строка в README у каждого; пины апстримов валидны")
     return 0
 
 

@@ -1,0 +1,5 @@
+# Апстримы каталога: repo <TAB> pin <TAB> каталог со скиллами <TAB> файл notices в апстриме <TAB> исключения (через запятую)
+# pin — коммит (40 hex), не ветка: переимпорт должен быть воспроизводимым.
+# Строки с # и пустые игнорируются. Читается scripts/sync-upstream.sh.
+anthropics/skills	2c5958ecac7cee2b583967a2c4981d0f4a75c579	skills	THIRD_PARTY_NOTICES.md	doc-coauthoring
+ClickHouse/agent-skills	d3b2b5ba43a8b80c2d08858b68d53edc701b5ace	skills	NOTICE	

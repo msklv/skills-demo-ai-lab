@@ -1,6 +1,5 @@
-<!-- Скопировано дословно из github.com/anthropics/skills@2c5958ecac7cee2b583967a2c4981d0f4a75c579 (THIRD_PARTY_NOTICES.md): атрибуция
-сторонних компонентов, которые тянут скиллы (imageio, FFmpeg и др.). Не редактируется —
-при обновлении пина копируется заново скриптом scripts/sync-upstream.sh. -->
+<!-- Скопировано дословно из github.com/anthropics/skills@2c5958ecac7cee2b583967a2c4981d0f4a75c579 (THIRD_PARTY_NOTICES.md): атрибуция сторонних
+компонентов, которые тянут скиллы. Не редактируется — переимпорт кладёт файл заново. -->
 
 # **Third-Party Notices**
 

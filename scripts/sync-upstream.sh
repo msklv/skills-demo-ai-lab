@@ -1,51 +1,74 @@
 #!/usr/bin/env bash
-# Переимпорт скиллов из апстрима (anthropics/skills) по пину.
+# Переимпорт скиллов из апстримов, перечисленных в upstreams.tsv, по пинам.
 # Копирование каталогов без правок содержимого: свои скиллы живут отдельными каталогами,
 # а не правками импортированных.
 #
-#   ./scripts/sync-upstream.sh                # переимпорт по пину из UPSTREAM.md
-#   ./scripts/sync-upstream.sh <commit|tag>   # другой ref (пин в UPSTREAM.md правится вручную)
+#   ./scripts/sync-upstream.sh                       # все апстримы, пины из upstreams.tsv
+#   ./scripts/sync-upstream.sh anthropics/skills     # только один апстрим
+#   UPSTREAM_REF=<commit|tag> ./scripts/sync-upstream.sh anthropics/skills   # пробный ref
 #
-# Требует: curl, tar. Каталоги без LICENSE.txt не импортируются (права не заявлены).
+# Требует: curl, tar. Каталог без SKILL.md не импортируется. Если у скилла нет своего
+# LICENSE.txt, а у апстрима есть корневой LICENSE, он кладётся в каталог скилла: установленный
+# отдельно скилл должен приезжать вместе с лицензией (Apache-2.0, п. 4 — сохранение notices).
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-REPO=${UPSTREAM_REPO:-anthropics/skills}
-PIN=$(awk -F'`' '/^\| Коммит /{print $2; exit}' UPSTREAM.md)
-REF=${1:-${PIN:-main}}
-[ -n "$REF" ] || { echo "не нашёл пин в UPSTREAM.md — передайте ref аргументом" >&2; exit 1; }
-
+ONLY=${1:-}
+TAB=$(printf '\t')
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
+mkdir -p notices
 
-echo "апстрим: $REPO @ $REF"
-curl -fsSL -o "$TMP/up.tgz" "https://codeload.github.com/$REPO/tar.gz/$REF"
-tar xzf "$TMP/up.tgz" -C "$TMP"
-SRC=$(find "$TMP" -maxdepth 1 -type d -name 'skills-*' -print -quit)
-[ -d "$SRC/skills" ] || { echo "в архиве нет каталога skills/" >&2; exit 1; }
+total_imported=0
+total_skipped=0
 
-imported=0
-skipped=0
-for dir in "$SRC"/skills/*/; do
-  name=$(basename "$dir")
-  if [ ! -f "$dir/LICENSE.txt" ]; then
-    echo "skip  $name — нет LICENSE.txt (права на распространение не заявлены)"
-    skipped=$((skipped + 1))
-    continue
+while IFS="$TAB" read -r repo pin skills_dir notices exclude; do
+  case "${repo:-}" in ''|\#*) continue ;; esac
+  if [ -n "$ONLY" ] && [ "$ONLY" != "$repo" ]; then continue; fi
+
+  ref=${UPSTREAM_REF:-$pin}
+  base=$(basename "$repo")
+  slug=$(printf '%s' "$repo" | tr '/' '-' | tr '[:upper:]' '[:lower:]')
+  echo "=== $repo @ $ref"
+
+  curl -fsSL -o "$TMP/$base.tgz" "https://codeload.github.com/$repo/tar.gz/$ref"
+  tar xzf "$TMP/$base.tgz" -C "$TMP"
+  src=$(find "$TMP" -maxdepth 1 -type d -name "$base-*" -print -quit)
+  [ -d "$src/$skills_dir" ] || { echo "  в архиве нет каталога $skills_dir" >&2; exit 1; }
+
+  for dir in "$src/$skills_dir"/*/; do
+    name=$(basename "$dir")
+    case ",$exclude," in
+      *",$name,"*) echo "  skip  $name — исключён (upstreams.tsv)"; total_skipped=$((total_skipped+1)); continue ;;
+    esac
+    if [ ! -f "$dir/SKILL.md" ]; then
+      echo "  skip  $name — нет SKILL.md (не скилл)"
+      total_skipped=$((total_skipped+1))
+      continue
+    fi
+    rm -rf "skills/$name"
+    cp -R "$dir" "skills/$name"
+    if [ ! -f "skills/$name/LICENSE.txt" ]; then
+      if [ -f "$src/LICENSE" ]; then
+        cp "$src/LICENSE" "skills/$name/LICENSE.txt"
+      else
+        echo "  ВНИМАНИЕ: $name без лицензии — публиковать нельзя, разбирайся с апстримом" >&2
+      fi
+    fi
+    echo "  import $name"
+    total_imported=$((total_imported+1))
+  done
+
+  if [ -n "$notices" ] && [ -f "$src/$notices" ]; then
+    {
+      echo "<!-- Скопировано дословно из github.com/$repo@$ref ($notices): атрибуция сторонних"
+      echo "компонентов, которые тянут скиллы. Не редактируется — переимпорт кладёт файл заново. -->"
+      echo
+      cat "$src/$notices"
+    } > "notices/$slug.md"
+    echo "  notices → notices/$slug.md"
   fi
-  rm -rf "skills/$name"
-  cp -R "$dir" "skills/$name"
-  echo "import $name"
-  imported=$((imported + 1))
-done
+done < upstreams.tsv
 
-{
-  echo "<!-- Скопировано дословно из github.com/$REPO@$REF (THIRD_PARTY_NOTICES.md): атрибуция"
-  echo "сторонних компонентов, которые тянут скиллы (imageio, FFmpeg и др.). Не редактируется —"
-  echo "при обновлении пина копируется заново скриптом scripts/sync-upstream.sh. -->"
-  echo
-  cat "$SRC/THIRD_PARTY_NOTICES.md"
-} > THIRD_PARTY_NOTICES.md
-
-echo "импортировано: $imported, пропущено: $skipped"
-echo "дальше: python3 scripts/check-catalog.py; обновить пин/таблицы в UPSTREAM.md и README.md"
+echo "импортировано: $total_imported, пропущено: $total_skipped"
+echo "дальше: python3 scripts/check-catalog.py; обновить таблицы в UPSTREAM.md и README.md"
