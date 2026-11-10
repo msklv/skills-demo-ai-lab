@@ -10,8 +10,9 @@
 |---|---|---|---|---|
 | [`anthropics/skills`](https://github.com/anthropics/skills) | `2c5958ecac7cee2b583967a2c4981d0f4a75c579` | 2026-11-06 | 18 скиллов | Apache-2.0, у каждого свой `LICENSE.txt` |
 | [`ClickHouse/agent-skills`](https://github.com/ClickHouse/agent-skills) | `d3b2b5ba43a8b80c2d08858b68d53edc701b5ace` | 2026-11-02 | 11 скиллов | Apache-2.0, корневой `LICENSE` репозитория |
+| [`yc-software/qm`](https://github.com/yc-software/qm) | `144fd5d54e8ae07855081f928d8d10f560f30fe7` | 2026-11-10 | 31 скилл (`skills-seed/` + `plugins/onboarding/skills/`) | MIT, корневой `LICENSE` репозитория |
 
-Дата импорта обеих таблиц — 2026-11-10. Итого 29 скиллов, ≈14 МБ.
+Дата импорта — 2026-11-10. Итого 60 скиллов, ≈16 МБ.
 
 ## anthropics/skills — импортировано
 
@@ -61,6 +62,46 @@
 копия корневого Apache-2.0 апстрима (в апстриме лицензия одна на репозиторий), поэтому
 отдельно установленный скилл приезжает вместе с лицензией.
 
+## yc-software/qm — импортировано (`skills-seed/`)
+
+| Скилл | Файлов | КБ | Лицензия |
+|---|---|---|---|
+| `admin` | 2 | 21 | MIT |
+| `browse` | 7 | 54 | MIT |
+| `cloud-cli` | 2 | 6 | MIT |
+| `composio` | 2 | 13 | MIT |
+| `connect-apps` | 2 | 4 | MIT |
+| `define-loop` | 2 | 7 | MIT |
+| `dropbox` | 2 | 9 | MIT |
+| `email-draft-in-voice` | 2 | 3 | MIT |
+| `email-voice-profile` | 3 | 13 | MIT |
+| `github-gitlab` | 3 | 13 | MIT |
+| `google-drive-sheets` | 2 | 10 | MIT |
+| `google-workspace` | 3 | 22 | MIT |
+| `hand-off` | 2 | 2 | MIT |
+| `interactive-login` | 3 | 6 | MIT |
+| `linear` | 2 | 5 | MIT |
+| `memory` | 2 | 7 | MIT |
+| `miniapp` | 2 | 2 | MIT |
+| `morning-digest` | 2 | 4 | MIT |
+| `persona-fork` | 2 | 3 | MIT |
+| `onboarding` | 2 | 10 | MIT |
+| `popular-web-designs` | 56 | 920 | MIT |
+| `publish` | 2 | 10 | MIT |
+| `request-access` | 2 | 3 | MIT |
+| `secret-drop` | 2 | 4 | MIT |
+| `send` | 2 | 6 | MIT |
+| `slack-drafts` | 3 | 10 | MIT |
+| `taste-skill` | 4 | 95 | MIT |
+| `ui-canvas` | 2 | 7 | MIT |
+| `ui-state` | 2 | 4 | MIT |
+| `use-shared-credential` | 2 | 6 | MIT |
+| `zoom` | 2 | 8 | MIT |
+
+Импортированы все каталоги `skills-seed/` плюс `plugins/onboarding/skills/` (там живёт `onboarding` — в
+посев он не входит, но ставится сидом плагина) без исключений: это стоковые (public) скиллы продукта. Скиллов конкретного контура здесь нет и быть не должно — адаптации под
+корпоративные адреса и интеграции живут в приватном каталоге, а не в этом репозитории.
+
 ## Что исключено и почему
 
 | Апстрим | Каталог | Причина |
@@ -88,7 +129,16 @@
 — этот каталог не импортируется, но NOTICE скопирован дословно целиком (`notices/clickhouse-agent-skills.md`),
 чтобы атрибуция не терялась.
 
-Notices обоих апстримов лежат в `notices/` дословно и перезаписываются скриптом при каждом
+**yc-software/qm.** Лицензия одна на репозиторий — **MIT** (`Copyright (c) 2026 QM contributors`),
+отдельных `LICENSE.txt` в каталогах `skills-seed/` нет, поэтому корневой текст скопирован в каталог
+каждого скилла. Файла notices у апстрима нет — строка notices в `upstreams.tsv` пустая.
+
+**Политика лицензий.** В каталог попадают только элементы под открытой лицензией (Apache-2.0, MIT,
+BSD-2/3-Clause, ISC, MPL-2.0, OFL-1.1, CC0-1.0, CC-BY-4.0, Unlicense). Неизвестная или проприетарная
+лицензия — не исключение «на усмотрение», а красный гейт: `scripts/check-catalog.py` распознаёт текст
+лицензии по маркерам и падает на любом незнакомом.
+
+Notices апстримов лежат в `notices/` дословно и перезаписываются скриптом при каждом
 переимпорте; сводная атрибуция — `NOTICE`.
 
 ## Обновление пина

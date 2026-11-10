@@ -8,7 +8,8 @@
   4. таблица «Каталог» в README перечисляет ровно те скиллы, что лежат в `skills/`
      (нет ни пропущенных, ни фантомных строк);
   5. в каталогах скиллов нет приватных артефактов (`*.local.md`, `.env*`);
-  6. `upstreams.tsv` — пины по коммиту (40 hex), notices апстрима скопирован в `notices/`.
+  6. `upstreams.tsv` — пины по коммиту (40 hex), notices апстрима скопирован в `notices/`;
+  7. лицензия каждого скилла — из белого списка открытых (непроприетарных) лицензий.
 
 Коды выхода: 0 — каталог цел, 1 — есть расхождения.
 """
@@ -26,6 +27,30 @@ NOTICES = ROOT / "notices"
 PIN = re.compile(r"^[0-9a-f]{40}$")
 
 FORBIDDEN = re.compile(r"(^|/)\.env(\..*)?$|\.local\.md$")
+
+# Белый список: только открытые лицензии. Порядок важен — проверяем по маркерам текста.
+OPEN_LICENSES = (
+    ("Apache-2.0", "Apache License"),
+    ("MIT", "MIT License"),
+    ("MIT", "Permission is hereby granted, free of charge"),
+    ("BSD-2-Clause", "BSD 2-Clause"),
+    ("BSD-3-Clause", "BSD 3-Clause"),
+    ("ISC", "ISC License"),
+    ("MPL-2.0", "Mozilla Public License Version 2.0"),
+    ("OFL-1.1", "SIL OPEN FONT LICENSE"),
+    ("CC0-1.0", "CC0 1.0 Universal"),
+    ("CC-BY-4.0", "Creative Commons Attribution 4.0"),
+    ("Unlicense", "This is free and unencumbered software released into the public domain"),
+)
+
+
+def open_license(path: Path) -> str | None:
+    """Возвращает SPDX-подобный идентификатор, если текст лицензии узнан как открытый."""
+    text = path.read_text(encoding="utf-8", errors="replace")
+    for spdx, marker in OPEN_LICENSES:
+        if marker in text:
+            return spdx
+    return None
 
 
 def frontmatter(text: str) -> dict[str, str]:
@@ -67,8 +92,11 @@ def main() -> int:
             problems.append(f"{skill.name}: name={fm['name']!r} не совпадает с каталогом")
         if not fm.get("description"):
             problems.append(f"{skill.name}: в frontmatter нет description")
-        if not (skill / "LICENSE.txt").is_file():
+        lic = skill / "LICENSE.txt"
+        if not lic.is_file():
             problems.append(f"{skill.name}: нет LICENSE.txt")
+        elif not open_license(lic):
+            problems.append(f"{skill.name}: лицензия не распознана как открытая — публиковать нельзя")
         for f in skill.rglob("*"):
             if f.is_file() and FORBIDDEN.search(str(f.relative_to(skill))):
                 problems.append(f"{skill.name}: приватный файл в каталоге — {f.relative_to(skill)}")
@@ -113,7 +141,13 @@ def main() -> int:
             print(f"  - {p}")
         return 1
 
-    print(f"OK: {len(dirs)} скиллов; SKILL.md + LICENSE.txt + строка в README у каждого; пины апстримов валидны")
+    kinds: dict[str, int] = {}
+    for skill in dirs:
+        lic = skill / "LICENSE.txt"
+        if lic.is_file():
+            kinds[open_license(lic) or "?"] = kinds.get(open_license(lic) or "?", 0) + 1
+    summary = ", ".join(f"{k} ×{v}" for k, v in sorted(kinds.items()))
+    print(f"OK: {len(dirs)} скиллов ({summary}); SKILL.md + LICENSE.txt + строка в README у каждого; пины валидны")
     return 0
 
 

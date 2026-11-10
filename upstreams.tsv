@@ -3,3 +3,5 @@
 # Строки с # и пустые игнорируются. Читается scripts/sync-upstream.sh.
 anthropics/skills	2c5958ecac7cee2b583967a2c4981d0f4a75c579	skills	THIRD_PARTY_NOTICES.md	doc-coauthoring
 ClickHouse/agent-skills	d3b2b5ba43a8b80c2d08858b68d53edc701b5ace	skills	NOTICE	
+yc-software/qm	144fd5d54e8ae07855081f928d8d10f560f30fe7	skills-seed		
+yc-software/qm	144fd5d54e8ae07855081f928d8d10f560f30fe7	plugins/onboarding/skills		
