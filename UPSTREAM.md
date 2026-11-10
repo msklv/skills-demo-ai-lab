@@ -12,8 +12,10 @@
 | [`ClickHouse/agent-skills`](https://github.com/ClickHouse/agent-skills) | `d3b2b5ba43a8b80c2d08858b68d53edc701b5ace` | 2026-11-02 | 11 скиллов | Apache-2.0, корневой `LICENSE` репозитория |
 | [`NousResearch/hermes-agent`](https://github.com/NousResearch/hermes-agent) | `b3746e35ddd32079697728e2df57a9d78f1e9e32` | 2026-11-10 | 1 скилл (`skills/creative/popular-web-designs`) | MIT, корневой `LICENSE` репозитория |
 | [`obra/superpowers`](https://github.com/obra/superpowers) | `22f0b463e7a5e579904dd6211a520321035526f7` | 2026-11-03 | 15 скиллов (`skills/`) | MIT, корневой `LICENSE` репозитория |
+| [`Cocoon-AI/architecture-diagram-generator`](https://github.com/Cocoon-AI/architecture-diagram-generator) | `4b9087d55268c79a935105439dbcd37b630fc3f3` | 2026-05-13 | 1 скилл (`architecture-diagram/`) | MIT, корневой `LICENSE` репозитория |
+| [`blader/humanizer`](https://github.com/blader/humanizer) | `e97c2c49ce0eb2990b83277da22a0c07a242b679` | 2026-11-10 | 1 скилл (репозиторий целиком) | MIT, файл `LICENSE` самого скилла |
 
-Дата импорта — 2026-11-10. Итого 45 скиллов, ≈15 МБ.
+Дата импорта — 2026-11-10. Итого 48 скиллов, ≈16 МБ.
 
 ## anthropics/skills — импортировано
 
@@ -104,6 +106,21 @@
 Каталог — то, что агент подхватывает по описанию; вызовы агентов и хуки (`hooks/`, `scripts/`,
 плагин-манифесты) не импортируются: это механика апстрима, а не скиллы.
 
+## Отдельные скиллы (по одному апстриму)
+
+| Апстрим | Скилл | Файлов | КБ | Лицензия |
+|---|---|---|---|---|
+| `Cocoon-AI/architecture-diagram-generator` (`architecture-diagram/`) | `architecture-diagram` | 3 | 26 | MIT, © 2025 Cocoon AI |
+| `blader/humanizer` (корень репозитория) | `humanizer` | 7 | 62 | MIT, © 2025 Siqi Chen |
+| `NousResearch/hermes-agent` (`optional-skills/creative/excalidraw`) | `excalidraw` | 6 | 30 | MIT, © 2025 Nous Research |
+
+Два режима импорта, которые они потребовали:
+- **каталог = один скилл** (`architecture-diagram/`, `optional-skills/creative/excalidraw`): берётся только
+  этот каталог, соседи по `skills/` не приезжают;
+- **репозиторий целиком** (`skills_dir = .` у `humanizer`): копируется корень скилла, инфраструктура
+  апстрима (`.github`, плагин-манифесты, `package.json`) не тащится. `humanizer` приносит свой `LICENSE`
+  (© 2025 Siqi Chen) — он приоритетнее репозиторного и нормализуется в `LICENSE.txt`.
+
 ## Что исключено и почему
 
 | Апстрим | Каталог | Причина |
@@ -137,6 +154,9 @@
 
 **obra/superpowers.** Лицензия одна на репозиторий — **MIT** (`Copyright (c) 2025 Jesse Vincent`),
 скопирована в каталог каждого скилла; файла notices нет.
+
+**Cocoon-AI/architecture-diagram-generator, blader/humanizer.** MIT на репозиторий; у `humanizer`
+лицензия лежит внутри самого скилла (`© 2025 Siqi Chen`) и она главнее — импорт её и сохраняет.
 
 **Политика лицензий.** В каталог попадают только элементы под открытой лицензией (Apache-2.0, MIT,
 BSD-2/3-Clause, ISC, MPL-2.0, OFL-1.1, CC0-1.0, CC-BY-4.0, Unlicense). Неизвестная или проприетарная

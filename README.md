@@ -13,7 +13,7 @@
 ```
 skills-demo-ai-lab/
 ├── skills/<имя-скилла>/       # один каталог = один скилл (SKILL.md + ассеты + его LICENSE.txt)
-├── upstreams.tsv              # апстримы (4): repo, пин-коммит, каталог скиллов, notices, исключения
+├── upstreams.tsv              # апстримы (6): repo, пин-коммит, каталог скиллов, notices, исключения
 ├── scripts/sync-upstream.sh   # переимпорт всех апстримов по пинам
 ├── scripts/check-catalog.py   # гейт: SKILL.md/description/лицензия, README = факт, пины валидны
 ├── UPSTREAM.md                # что, откуда и на каком коммите импортировано; что исключено
@@ -31,7 +31,7 @@ skills-demo-ai-lab/
 
 ## Каталог
 
-45 скиллов из четырёх апстримов, все — под открытыми лицензиями: **Apache-2.0** (© Anthropic PBC,
+48 скиллов из шести апстримов, все — под открытыми лицензиями: **Apache-2.0** (© Anthropic PBC,
 © ClickHouse, Inc.) и **MIT** (© Nous Research, © Jesse Vincent). Скиллов с неоткрытой лицензией в каталоге нет —
 это проверяет гейт (`scripts/check-catalog.py`, белый список лицензий).
 
@@ -57,6 +57,9 @@ skills-demo-ai-lab/
 | [infra-clickhouse](skills/infra-clickhouse/) | ClickHouse через CLI `clickhousectl`: локальный сервер для разработки, managed-кластеры, доступы | инфраструктура | clickhouse |
 | [infra-postgres](skills/infra-postgres/) | Postgres через CLI `clickhousectl`: локальный Docker-инстанс, managed Postgres, доступы и правила | инфраструктура | clickhouse |
 | [internal-comms](skills/internal-comms/) | внутренние коммуникации в форматах компании (апдейты, статусы, разборы) | коммуникации | anthropics |
+| [architecture-diagram](skills/architecture-diagram/) | тёмные архитектурные схемы (system/infra/cloud/network) как self-contained HTML+SVG | визуал | cocoon-ai |
+| [excalidraw](skills/excalidraw/) | рукописные диаграммы в формате Excalidraw JSON: архитектура, потоки, последовательности | визуал | hermes-agent |
+| [humanizer](skills/humanizer/) | переписать «ИИ-текст» в голос автора: убрать not-X-but-Y, штампы, пафос, обилие тире | коммуникации | humanizer |
 | [mcp-builder](skills/mcp-builder/) | как писать качественные MCP-серверы (Python/TypeScript), чек-лист ревью | инженерия | anthropics |
 | [pdf](skills/pdf/) | всё про PDF: извлечение текста, формы, слияние/разделение, OCR | документы | anthropics |
 | [popular-web-designs](skills/popular-web-designs/) | 54 реальные дизайн-системы (Stripe, Linear, Vercel, Notion, Apple…) как готовый HTML/CSS: цвета, типографика, компоненты | визуал | hermes-agent |
@@ -138,7 +141,9 @@ scripts/check-catalog.py                        # гейт каталога (п�
 - Импортированные скиллы: **Apache-2.0** — © Anthropic PBC (`anthropics/skills`),
   © ClickHouse, Inc. (`ClickHouse/agent-skills`); **MIT** — © Nous Research (`NousResearch/hermes-agent`,
   скилл `popular-web-designs`, дизайн-системы — из `VoltAgent/awesome-design-md`) и © Jesse Vincent
-  (`obra/superpowers`, 15 скиллов процесса разработки). Текст лицензии лежит внутри каждого каталога
+  (`obra/superpowers`, 15 скиллов процесса разработки); ещё три MIT-скилла — © 2025 Cocoon AI
+  (`architecture-diagram`), © 2025 Siqi Chen (`humanizer`), © 2025 Nous Research (`excalidraw`).
+  Текст лицензии лежит внутри каждого каталога
   (`skills/<name>/LICENSE.txt`) дословно; сводная атрибуция — `NOTICE`.
 - Шрифты в `skills/canvas-design/canvas-fonts/` — **SIL OFL 1.1**, текст рядом (`*-OFL.txt`).
 - Сторонние компоненты, которые тянут скиллы (imageio, FFmpeg; Vercel MIT — в `ClickHouse/agent-skills`) —

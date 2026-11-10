@@ -36,7 +36,7 @@ while IFS="$TAB" read -r repo pin skills_dir notices exclude; do
   src=$(find "$TMP" -maxdepth 1 -type d -name "$base-*" -print -quit)
   [ -d "$src/$skills_dir" ] || { echo "  в архиве нет каталога $skills_dir" >&2; exit 1; }
 
-  # Каталог в манифесте может быть либо папкой со скиллами, либо одним скиллом:
+  # Каталог в манифесте может быть папкой со скиллами, одним скиллом или всем репозиторием ("."):
   # если в нём самом лежит SKILL.md — импортируется он один (иначе приехали бы соседи по каталогу).
   if [ -f "$src/$skills_dir/SKILL.md" ]; then
     set -- "$src/$skills_dir"
@@ -45,7 +45,9 @@ while IFS="$TAB" read -r repo pin skills_dir notices exclude; do
   fi
 
   for dir in "$@"; do
-    name=$(basename "$dir")
+    # имя берём из frontmatter (в режиме "." имя каталога — это распакованный архив апстрима)
+    name=$(sed -n 's/^name:[[:space:]]*//p' "$dir/SKILL.md" | head -1 | tr -d "\"'" )
+    [ -n "$name" ] || name=$(basename "$dir")
     case ",$exclude," in
       *",$name,"*) echo "  skip  $name — исключён (upstreams.tsv)"; total_skipped=$((total_skipped+1)); continue ;;
     esac
@@ -56,6 +58,15 @@ while IFS="$TAB" read -r repo pin skills_dir notices exclude; do
     fi
     rm -rf "skills/$name"
     cp -R "$dir" "skills/$name"
+    # режим ".": не тащим инфраструктуру апстрима (CI, плагин-манифесты, node_modules)
+    if [ "$skills_dir" = "." ]; then
+      rm -rf "skills/$name"/.[!.]* "skills/$name"/node_modules "skills/$name"/package.json
+    fi
+    # лицензия элемента главнее репозиторной: у агрегатора в каталоге может лежать
+    # вендоренный элемент со своим копирайтом (тогда автор — не владелец репозитория)
+    if [ -f "skills/$name/LICENSE" ] && [ ! -f "skills/$name/LICENSE.txt" ]; then
+      mv "skills/$name/LICENSE" "skills/$name/LICENSE.txt"
+    fi
     if [ ! -f "skills/$name/LICENSE.txt" ]; then
       if [ -f "$src/LICENSE" ]; then
         cp "$src/LICENSE" "skills/$name/LICENSE.txt"

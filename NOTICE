@@ -40,6 +40,21 @@
 - Импортировано: 15 скиллов (`skills/`)
 - **Copyright (c) 2025 Jesse Vincent.** Лицензия — MIT; текст скопирован в каталог каждого скилла.
 
+### Cocoon-AI/architecture-diagram-generator
+
+- Коммит: `4b9087d55268c79a935105439dbcd37b630fc3f3`, скилл `architecture-diagram`
+- **Copyright (c) 2025 Cocoon AI.** Лицензия — MIT.
+
+### blader/humanizer
+
+- Коммит: `e97c2c49ce0eb2990b83277da22a0c07a242b679`, скилл `humanizer`
+- **Copyright (c) 2025 Siqi Chen.** Лицензия — MIT (файл лицензии самого скилла).
+
+### NousResearch/hermes-agent (второй скилл)
+
+- Коммит: `b3746e35ddd32079697728e2df57a9d78f1e9e32`, скилл `excalidraw`
+- **Copyright (c) 2025 Nous Research.** Лицензия — MIT.
+
 Файлы импортированных скиллов не редактировались; правки этого репозитория касаются только
 обвязки (README, `scripts/`, каталог) — она под Apache-2.0 (см. `LICENSE`).
 
