@@ -9,7 +9,9 @@
      (нет ни пропущенных, ни фантомных строк);
   5. в каталогах скиллов нет приватных артефактов (`*.local.md`, `.env*`);
   6. `upstreams.tsv` — пины по коммиту (40 hex), notices апстрима скопирован в `notices/`;
-  7. лицензия каждого скилла — из белого списка открытых (непроприетарных) лицензий.
+  7. лицензия каждого скилла — из белого списка открытых (непроприетарных) лицензий;
+  8. у скилла нет «второй» лицензии/атрибуции (LICENSE, NOTICE, ATTRIBUTION*): такой файл означает,
+     что элемент вендорен из третьего источника, и первоисточник надо проверять отдельно.
 
 Коды выхода: 0 — каталог цел, 1 — есть расхождения.
 """
@@ -92,6 +94,12 @@ def main() -> int:
             problems.append(f"{skill.name}: name={fm['name']!r} не совпадает с каталогом")
         if not fm.get("description"):
             problems.append(f"{skill.name}: в frontmatter нет description")
+        extra = [f.name for f in skill.iterdir()
+                 if f.is_file() and re.match(r"^(LICENSE(\..*)?|NOTICE(\..*)?|ATTRIBUTION.*)$", f.name)
+                 and f.name != "LICENSE.txt"]
+        if extra:
+            problems.append(f"{skill.name}: своя лицензия/атрибуция рядом — {', '.join(sorted(extra))}"
+                            " (элемент вендорен из третьего источника: проверить первоисточник)")
         lic = skill / "LICENSE.txt"
         if not lic.is_file():
             problems.append(f"{skill.name}: нет LICENSE.txt")
@@ -143,6 +151,12 @@ def main() -> int:
 
     kinds: dict[str, int] = {}
     for skill in dirs:
+        extra = [f.name for f in skill.iterdir()
+                 if f.is_file() and re.match(r"^(LICENSE(\..*)?|NOTICE(\..*)?|ATTRIBUTION.*)$", f.name)
+                 and f.name != "LICENSE.txt"]
+        if extra:
+            problems.append(f"{skill.name}: своя лицензия/атрибуция рядом — {', '.join(sorted(extra))}"
+                            " (элемент вендорен из третьего источника: проверить первоисточник)")
         lic = skill / "LICENSE.txt"
         if lic.is_file():
             kinds[open_license(lic) or "?"] = kinds.get(open_license(lic) or "?", 0) + 1
