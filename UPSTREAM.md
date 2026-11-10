@@ -15,7 +15,7 @@
 | [`Cocoon-AI/architecture-diagram-generator`](https://github.com/Cocoon-AI/architecture-diagram-generator) | `4b9087d55268c79a935105439dbcd37b630fc3f3` | 2026-05-13 | 1 скилл (`architecture-diagram/`) | MIT, корневой `LICENSE` репозитория |
 | [`blader/humanizer`](https://github.com/blader/humanizer) | `e97c2c49ce0eb2990b83277da22a0c07a242b679` | 2026-11-10 | 1 скилл (репозиторий целиком) | MIT, файл `LICENSE` самого скилла |
 
-Дата импорта — 2026-11-10. Итого 48 скиллов, ≈16 МБ.
+Дата импорта — 2026-11-10. Итого 51 скилл, ≈16 МБ.
 
 ## anthropics/skills — импортировано
 
@@ -114,12 +114,25 @@
 | `blader/humanizer` (корень репозитория) | `humanizer` | 7 | 62 | MIT, © 2025 Siqi Chen |
 | `NousResearch/hermes-agent` (`optional-skills/creative/excalidraw`) | `excalidraw` | 6 | 30 | MIT, © 2025 Nous Research |
 
+| `NousResearch/hermes-agent` (`skills/creative/claude-design`) | `claude-design` | 2 | 26 |
+| `NousResearch/hermes-agent` (`optional-skills/creative/design-md`) | `design-md` | 3 | 12 |
+| `NousResearch/hermes-agent` (`skills/creative/p5js`) | `p5js` | 18 | 163 |
+
 Два режима импорта, которые они потребовали:
 - **каталог = один скилл** (`architecture-diagram/`, `optional-skills/creative/excalidraw`): берётся только
   этот каталог, соседи по `skills/` не приезжают;
 - **репозиторий целиком** (`skills_dir = .` у `humanizer`): копируется корень скилла, инфраструктура
   апстрима (`.github`, плагин-манифесты, `package.json`) не тащится. `humanizer` приносит свой `LICENSE`
   (© 2025 Siqi Chen) — он приоритетнее репозиторного и нормализуется в `LICENSE.txt`.
+
+### Авторство скиллов из hermes-agent
+
+`popular-web-designs`, `excalidraw` — собственные скиллы Hermes; `claude-design` и `p5js` опубликованы
+Nous Research под MIT, но во frontmatter указаны авторы (`author: BadTechBandit`, `author: SHL0MS,
+Hermes Agent`). Отдельных публичных репозиториев с этими скиллами нет — единственный публичный источник
+под открытой лицензией — `hermes-agent`, поэтому импорт оттуда, а авторы остаются указанными в файле.
+`design-md` — скилл Hermes про формат DESIGN.md от `google-labs-code/design.md` (Apache-2.0): сам формат
+в репозитории Google, скилл-обёртка — MIT от Nous Research.
 
 ## Что исключено и почему
 

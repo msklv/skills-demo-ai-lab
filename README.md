@@ -31,7 +31,7 @@ skills-demo-ai-lab/
 
 ## Каталог
 
-48 скиллов из шести апстримов, все — под открытыми лицензиями: **Apache-2.0** (© Anthropic PBC,
+51 скилл из шести апстримов, все — под открытыми лицензиями: **Apache-2.0** (© Anthropic PBC,
 © ClickHouse, Inc.) и **MIT** (© Nous Research, © Jesse Vincent). Скиллов с неоткрытой лицензией в каталоге нет —
 это проверяет гейт (`scripts/check-catalog.py`, белый список лицензий).
 
@@ -52,6 +52,9 @@ skills-demo-ai-lab/
 | [clickhouse-managed-postgres-rca](skills/clickhouse-managed-postgres-rca/) | RCA производительности ClickHouse-managed Postgres: сбор доказательств через Prometheus/логи | данные | clickhouse |
 | [clickstack-otel-collector](skills/clickstack-otel-collector/) | подключение OpenTelemetry-коллектора к Managed ClickStack в ClickHouse Cloud | наблюдаемость | clickhouse |
 | [discernment-nudge](skills/discernment-nudge/) | пауза перед «уверенным» советом: проверка допущений и границ применимости | качество | anthropics |
+| [claude-design](skills/claude-design/) | одноразовый HTML-артефакт за прогон: лендинг, дек, прототип — с движением и дизайн-системой | визуал | hermes-agent |
+| [design-md](skills/design-md/) | DESIGN.md-токены (Google-формат): авторская спека цветов/типографики/радиусов, валидация и экспорт | визуал | hermes-agent |
+| [p5js](skills/p5js/) | скетчи p5.js: генеративное искусство, шейдеры, интерактив, 3D | визуал | hermes-agent |
 | [docx](skills/docx/) | Word: создание, чтение, правка, отслеживаемые изменения, OOXML-схемы | документы | anthropics |
 | [frontend-design](skills/frontend-design/) | дизайн-гайд для нового UI и переделки существующего | визуал | anthropics |
 | [infra-clickhouse](skills/infra-clickhouse/) | ClickHouse через CLI `clickhousectl`: локальный сервер для разработки, managed-кластеры, доступы | инфраструктура | clickhouse |

@@ -8,3 +8,6 @@ obra/superpowers	22f0b463e7a5e579904dd6211a520321035526f7	skills
 Cocoon-AI/architecture-diagram-generator	4b9087d55268c79a935105439dbcd37b630fc3f3	architecture-diagram		
 blader/humanizer	e97c2c49ce0eb2990b83277da22a0c07a242b679	.		
 NousResearch/hermes-agent	b3746e35ddd32079697728e2df57a9d78f1e9e32	optional-skills/creative/excalidraw		
+NousResearch/hermes-agent	b3746e35ddd32079697728e2df57a9d78f1e9e32	optional-skills/creative/design-md		
+NousResearch/hermes-agent	b3746e35ddd32079697728e2df57a9d78f1e9e32	skills/creative/claude-design		
+NousResearch/hermes-agent	b3746e35ddd32079697728e2df57a9d78f1e9e32	skills/creative/p5js		

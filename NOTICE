@@ -50,10 +50,13 @@
 - Коммит: `e97c2c49ce0eb2990b83277da22a0c07a242b679`, скилл `humanizer`
 - **Copyright (c) 2025 Siqi Chen.** Лицензия — MIT (файл лицензии самого скилла).
 
-### NousResearch/hermes-agent (второй скилл)
+### NousResearch/hermes-agent (остальные скиллы)
 
-- Коммит: `b3746e35ddd32079697728e2df57a9d78f1e9e32`, скилл `excalidraw`
+- Коммит: `b3746e35ddd32079697728e2df57a9d78f1e9e32`
+- Скиллы: `excalidraw`, `design-md`, `claude-design`, `p5js`
 - **Copyright (c) 2025 Nous Research.** Лицензия — MIT.
+- Авторы, указанные во frontmatter самих скиллов: `claude-design` — BadTechBandit, `p5js` — SHL0MS +
+  Hermes Agent; `design-md` описывает формат DESIGN.md от `google-labs-code/design.md` (Apache-2.0).
 
 Файлы импортированных скиллов не редактировались; правки этого репозитория касаются только
 обвязки (README, `scripts/`, каталог) — она под Apache-2.0 (см. `LICENSE`).
