@@ -24,6 +24,16 @@
 - Каталоги `packages/`, `.github/`, `.claude-plugin/` не импортированы (сборочные скрипты и
   манифесты, а не скиллы).
 
+### NousResearch/hermes-agent
+
+- Коммит: `b3746e35ddd32079697728e2df57a9d78f1e9e32`
+- Импортировано: 1 скилл (`popular-web-designs`)
+- **Copyright (c) 2025 Nous Research.** Лицензия — MIT; текст скопирован в каталог скилла
+  (`skills/popular-web-designs/LICENSE.txt`).
+- 54 дизайн-системы внутри скилла происходят из **VoltAgent/awesome-design-md** (MIT); атрибуция
+  указана во frontmatter скилла (`author: Hermes Agent + Teknium (design systems sourced from
+  VoltAgent/awesome-design-md)`) и сохранена здесь.
+
 Файлы импортированных скиллов не редактировались; правки этого репозитория касаются только
 обвязки (README, `scripts/`, каталог) — она под Apache-2.0 (см. `LICENSE`).
 

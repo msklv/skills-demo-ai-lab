@@ -10,8 +10,9 @@
 |---|---|---|---|---|
 | [`anthropics/skills`](https://github.com/anthropics/skills) | `2c5958ecac7cee2b583967a2c4981d0f4a75c579` | 2026-11-06 | 18 скиллов | Apache-2.0, у каждого свой `LICENSE.txt` |
 | [`ClickHouse/agent-skills`](https://github.com/ClickHouse/agent-skills) | `d3b2b5ba43a8b80c2d08858b68d53edc701b5ace` | 2026-11-02 | 11 скиллов | Apache-2.0, корневой `LICENSE` репозитория |
+| [`NousResearch/hermes-agent`](https://github.com/NousResearch/hermes-agent) | `b3746e35ddd32079697728e2df57a9d78f1e9e32` | 2026-11-10 | 1 скилл (`skills/creative/popular-web-designs`) | MIT, корневой `LICENSE` репозитория |
 
-Дата импорта — 2026-11-10. Итого 29 скиллов, ≈14 МБ.
+Дата импорта — 2026-11-10. Итого 30 скиллов, ≈15 МБ.
 
 ## anthropics/skills — импортировано
 
@@ -61,6 +62,22 @@
 копия корневого Apache-2.0 апстрима (в апстриме лицензия одна на репозиторий), поэтому
 отдельно установленный скилл приезжает вместе с лицензией.
 
+## NousResearch/hermes-agent — импортировано
+
+| Скилл | Файлов | КБ | Лицензия |
+|---|---|---|---|
+| `popular-web-designs` | 56 | 856 | MIT |
+
+Импортирован один каталог (`skills/creative/popular-web-designs`), а не весь `skills/creative`:
+соседние каталоги — те же скиллы Anthropic, они уже приезжают из своего апстрима, дубли не нужны.
+Скрипт умеет режим «один каталог = один скилл»: если в каталоге манифеста есть `SKILL.md`, он
+импортируется как один элемент.
+
+**Атрибуция внутри элемента:** во frontmatter скилла прямо указано
+`author: Hermes Agent + Teknium (design systems sourced from VoltAgent/awesome-design-md)` — сами
+54 дизайн-системы пришли из [`VoltAgent/awesome-design-md`](https://github.com/VoltAgent/awesome-design-md)
+(MIT). Скилл берём у того, кто сохранил атрибуцию, а не у переупаковщика без неё.
+
 ## Что исключено и почему
 
 | Апстрим | Каталог | Причина |
@@ -87,6 +104,10 @@
 Корневой `NOTICE` содержит атрибуцию Vercel, Inc. (MIT) для `packages/clickhouse-best-practices-build/src/`
 — этот каталог не импортируется, но NOTICE скопирован дословно целиком (`notices/clickhouse-agent-skills.md`),
 чтобы атрибуция не терялась.
+
+**NousResearch/hermes-agent.** Лицензия одна на репозиторий — **MIT** (`Copyright (c) 2025 Nous Research`),
+скопирована в каталог скилла. Файла notices у апстрима нет; атрибуция датасета (VoltAgent, MIT)
+прописана в frontmatter самого скилла и повторена в `NOTICE`.
 
 **Политика лицензий.** В каталог попадают только элементы под открытой лицензией (Apache-2.0, MIT,
 BSD-2/3-Clause, ISC, MPL-2.0, OFL-1.1, CC0-1.0, CC-BY-4.0, Unlicense). Неизвестная или проприетарная

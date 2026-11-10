@@ -36,7 +36,15 @@ while IFS="$TAB" read -r repo pin skills_dir notices exclude; do
   src=$(find "$TMP" -maxdepth 1 -type d -name "$base-*" -print -quit)
   [ -d "$src/$skills_dir" ] || { echo "  в архиве нет каталога $skills_dir" >&2; exit 1; }
 
-  for dir in "$src/$skills_dir"/*/; do
+  # Каталог в манифесте может быть либо папкой со скиллами, либо одним скиллом:
+  # если в нём самом лежит SKILL.md — импортируется он один (иначе приехали бы соседи по каталогу).
+  if [ -f "$src/$skills_dir/SKILL.md" ]; then
+    set -- "$src/$skills_dir"
+  else
+    set -- "$src/$skills_dir"/*/
+  fi
+
+  for dir in "$@"; do
     name=$(basename "$dir")
     case ",$exclude," in
       *",$name,"*) echo "  skip  $name — исключён (upstreams.tsv)"; total_skipped=$((total_skipped+1)); continue ;;
