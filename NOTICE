@@ -34,6 +34,12 @@
   указана во frontmatter скилла (`author: Hermes Agent + Teknium (design systems sourced from
   VoltAgent/awesome-design-md)`) и сохранена здесь.
 
+### obra/superpowers
+
+- Коммит: `22f0b463e7a5e579904dd6211a520321035526f7`
+- Импортировано: 15 скиллов (`skills/`)
+- **Copyright (c) 2025 Jesse Vincent.** Лицензия — MIT; текст скопирован в каталог каждого скилла.
+
 Файлы импортированных скиллов не редактировались; правки этого репозитория касаются только
 обвязки (README, `scripts/`, каталог) — она под Apache-2.0 (см. `LICENSE`).
 

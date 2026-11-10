@@ -13,7 +13,7 @@
 ```
 skills-demo-ai-lab/
 ├── skills/<имя-скилла>/       # один каталог = один скилл (SKILL.md + ассеты + его LICENSE.txt)
-├── upstreams.tsv              # апстримы (3): repo, пин-коммит, каталог скиллов, notices, исключения
+├── upstreams.tsv              # апстримы (4): repo, пин-коммит, каталог скиллов, notices, исключения
 ├── scripts/sync-upstream.sh   # переимпорт всех апстримов по пинам
 ├── scripts/check-catalog.py   # гейт: SKILL.md/description/лицензия, README = факт, пины валидны
 ├── UPSTREAM.md                # что, откуда и на каком коммите импортировано; что исключено
@@ -31,8 +31,8 @@ skills-demo-ai-lab/
 
 ## Каталог
 
-30 скиллов из трёх апстримов, все — под открытыми лицензиями: **Apache-2.0** (© Anthropic PBC,
-© ClickHouse, Inc.) и **MIT** (© Nous Research). Скиллов с неоткрытой лицензией в каталоге нет —
+45 скиллов из четырёх апстримов, все — под открытыми лицензиями: **Apache-2.0** (© Anthropic PBC,
+© ClickHouse, Inc.) и **MIT** (© Nous Research, © Jesse Vincent). Скиллов с неоткрытой лицензией в каталоге нет —
 это проверяет гейт (`scripts/check-catalog.py`, белый список лицензий).
 
 | Скилл | Что делает | Категория | Источник |
@@ -62,6 +62,21 @@ skills-demo-ai-lab/
 | [popular-web-designs](skills/popular-web-designs/) | 54 реальные дизайн-системы (Stripe, Linear, Vercel, Notion, Apple…) как готовый HTML/CSS: цвета, типографика, компоненты | визуал | hermes-agent |
 | [pptx](skills/pptx/) | PowerPoint: создание, правка, шаблоны, форматирование | документы | anthropics |
 | [skill-creator](skills/skill-creator/) | создание и улучшение скиллов, оценка их качества, eval-viewer | инженерия | anthropics |
+| [brainstorming](skills/brainstorming/) | брейншторм перед работой: вопросы по одному, варианты, дизайн-док до кода | процесс | superpowers |
+| [diagnosing-superpowers](skills/diagnosing-superpowers/) | диагностика самого набора superpowers: почему скилл не сработал / конфликтует | процесс | superpowers |
+| [dispatching-parallel-agents](skills/dispatching-parallel-agents/) | распараллеливание работы субагентов: когда делить, как формулировать задания | процесс | superpowers |
+| [executing-plans](skills/executing-plans/) | исполнение написанного плана по шагам с проверкой на каждом этапе | процесс | superpowers |
+| [finishing-a-development-branch](skills/finishing-a-development-branch/) | закрытие ветки: тесты, ревью, чистая история, merge | инженерия | superpowers |
+| [receiving-code-review](skills/receiving-code-review/) | как принимать ревью: разбор замечаний, а не защита кода | процесс | superpowers |
+| [requesting-code-review](skills/requesting-code-review/) | как просить ревью: подготовка диффа, контекст, критерии приёмки | процесс | superpowers |
+| [subagent-driven-development](skills/subagent-driven-development/) | разработка через субагентов: изоляция контекста, слияние результатов | процесс | superpowers |
+| [systematic-debugging](skills/systematic-debugging/) | 4-фазная отладка: сначала понять баг, потом править (root cause) | инженерия | superpowers |
+| [test-driven-development](skills/test-driven-development/) | TDD: RED-GREEN-REFACTOR, тесты раньше кода | инженерия | superpowers |
+| [using-git-worktrees](skills/using-git-worktrees/) | параллельные ветки в git worktrees без переключения рабочего дерева | инженерия | superpowers |
+| [using-superpowers](skills/using-superpowers/) | точка входа набора: какой скилл процесса включать и когда | процесс | superpowers |
+| [verification-before-completion](skills/verification-before-completion/) | проверка перед «готово»: критерии приёмки, а не «кажется, работает» | процесс | superpowers |
+| [writing-plans](skills/writing-plans/) | план работ: шаги, зависимости, критерии проверки до старта | процесс | superpowers |
+| [writing-skills](skills/writing-skills/) | как писать скиллы: структура SKILL.md, описание-триггер, объём | процесс | superpowers |
 | [slack-gif-creator](skills/slack-gif-creator/) | анимированные GIF под лимиты Slack (imageio/ffmpeg) | визуал | anthropics |
 | [theme-factory](skills/theme-factory/) | темы оформления артефактов: слайды, доки, отчёты, HTML-страницы | визуал | anthropics |
 | [web-artifacts-builder](skills/web-artifacts-builder/) | многокомпонентные HTML-артефакты на современном фронтенд-стеке | визуал | anthropics |
@@ -122,8 +137,9 @@ scripts/check-catalog.py                        # гейт каталога (п�
 
 - Импортированные скиллы: **Apache-2.0** — © Anthropic PBC (`anthropics/skills`),
   © ClickHouse, Inc. (`ClickHouse/agent-skills`); **MIT** — © Nous Research (`NousResearch/hermes-agent`,
-  скилл `popular-web-designs`, дизайн-системы — из `VoltAgent/awesome-design-md`). Текст лицензии лежит
-  внутри каждого каталога (`skills/<name>/LICENSE.txt`) дословно; сводная атрибуция — `NOTICE`.
+  скилл `popular-web-designs`, дизайн-системы — из `VoltAgent/awesome-design-md`) и © Jesse Vincent
+  (`obra/superpowers`, 15 скиллов процесса разработки). Текст лицензии лежит внутри каждого каталога
+  (`skills/<name>/LICENSE.txt`) дословно; сводная атрибуция — `NOTICE`.
 - Шрифты в `skills/canvas-design/canvas-fonts/` — **SIL OFL 1.1**, текст рядом (`*-OFL.txt`).
 - Сторонние компоненты, которые тянут скиллы (imageio, FFmpeg; Vercel MIT — в `ClickHouse/agent-skills`) —
   дословные notices апстримов в `notices/`.

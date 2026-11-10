@@ -11,8 +11,9 @@
 | [`anthropics/skills`](https://github.com/anthropics/skills) | `2c5958ecac7cee2b583967a2c4981d0f4a75c579` | 2026-11-06 | 18 скиллов | Apache-2.0, у каждого свой `LICENSE.txt` |
 | [`ClickHouse/agent-skills`](https://github.com/ClickHouse/agent-skills) | `d3b2b5ba43a8b80c2d08858b68d53edc701b5ace` | 2026-11-02 | 11 скиллов | Apache-2.0, корневой `LICENSE` репозитория |
 | [`NousResearch/hermes-agent`](https://github.com/NousResearch/hermes-agent) | `b3746e35ddd32079697728e2df57a9d78f1e9e32` | 2026-11-10 | 1 скилл (`skills/creative/popular-web-designs`) | MIT, корневой `LICENSE` репозитория |
+| [`obra/superpowers`](https://github.com/obra/superpowers) | `22f0b463e7a5e579904dd6211a520321035526f7` | 2026-11-03 | 15 скиллов (`skills/`) | MIT, корневой `LICENSE` репозитория |
 
-Дата импорта — 2026-11-10. Итого 30 скиллов, ≈15 МБ.
+Дата импорта — 2026-11-10. Итого 45 скиллов, ≈15 МБ.
 
 ## anthropics/skills — импортировано
 
@@ -78,6 +79,31 @@
 54 дизайн-системы пришли из [`VoltAgent/awesome-design-md`](https://github.com/VoltAgent/awesome-design-md)
 (MIT). Скилл берём у того, кто сохранил атрибуцию, а не у переупаковщика без неё.
 
+## obra/superpowers — импортировано
+
+| Скилл | Файлов | КБ | Лицензия |
+|---|---|---|---|
+| `brainstorming` | 9 | 79 | MIT |
+| `diagnosing-superpowers` | 21 | 42 | MIT |
+| `dispatching-parallel-agents` | 2 | 7 | MIT |
+| `executing-plans` | 4 | 22 | MIT |
+| `finishing-a-development-branch` | 2 | 9 | MIT |
+| `receiving-code-review` | 2 | 7 | MIT |
+| `requesting-code-review` | 3 | 10 | MIT |
+| `subagent-driven-development` | 16 | 65 | MIT |
+| `systematic-debugging` | 7 | 29 | MIT |
+| `test-driven-development` | 3 | 18 | MIT |
+| `using-git-worktrees` | 2 | 8 | MIT |
+| `using-superpowers` | 9 | 21 | MIT |
+| `verification-before-completion` | 2 | 5 | MIT |
+| `writing-plans` | 2 | 11 | MIT |
+| `writing-skills` | 11 | 108 | MIT |
+
+Импортирован весь каталог `skills/` — набор процесса разработки целиком (15 скиллов): брейншторм и
+планы, TDD, системная отладка, работа через субагентов, ревью, закрытие ветки, проверка перед «готово».
+Каталог — то, что агент подхватывает по описанию; вызовы агентов и хуки (`hooks/`, `scripts/`,
+плагин-манифесты) не импортируются: это механика апстрима, а не скиллы.
+
 ## Что исключено и почему
 
 | Апстрим | Каталог | Причина |
@@ -108,6 +134,9 @@
 **NousResearch/hermes-agent.** Лицензия одна на репозиторий — **MIT** (`Copyright (c) 2025 Nous Research`),
 скопирована в каталог скилла. Файла notices у апстрима нет; атрибуция датасета (VoltAgent, MIT)
 прописана в frontmatter самого скилла и повторена в `NOTICE`.
+
+**obra/superpowers.** Лицензия одна на репозиторий — **MIT** (`Copyright (c) 2025 Jesse Vincent`),
+скопирована в каталог каждого скилла; файла notices нет.
 
 **Политика лицензий.** В каталог попадают только элементы под открытой лицензией (Apache-2.0, MIT,
 BSD-2/3-Clause, ISC, MPL-2.0, OFL-1.1, CC0-1.0, CC-BY-4.0, Unlicense). Неизвестная или проприетарная
