@@ -1,0 +1,27 @@
+# NOTICE
+
+## Импортированные скиллы
+
+`skills/` содержит материалы из репозитория **[anthropics/skills](https://github.com/anthropics/skills)**,
+коммит `2c5958ecac7cee2b583967a2c4981d0f4a75c579`.
+
+**Copyright 2026 Anthropic, PBC.** Лицензия — Apache License, Version 2.0
+(<https://www.apache.org/licenses/LICENSE-2.0>). Текст лицензии — в `LICENSE` этого репозитория
+и дословно в каждом каталоге скилла (`skills/<имя>/LICENSE.txt`).
+
+Импортировано 18 скиллов; перечень, пин и исключения — `UPSTREAM.md`. Скилл
+`doc-coauthoring` **не импортирован**: в апстриме у него нет файла лицензии, права на
+перераспространение не заявлены.
+
+Файлы импортированных скиллов не редактировались; правки этого репозитория касаются только
+обвязки (README, `scripts/`, каталог) — она под Apache-2.0 (см. `LICENSE`).
+
+## Шрифты
+
+`skills/canvas-design/canvas-fonts/*.ttf` — SIL Open Font License 1.1, текст каждой лицензии
+рядом с шрифтом (`*-OFL.txt`).
+
+## Сторонние компоненты
+
+`THIRD_PARTY_NOTICES.md` — дословная копия из апстрима: атрибуция сторонних компонентов,
+которые скиллы используют во время работы (imageio, imageio-ffmpeg, FFmpeg).
